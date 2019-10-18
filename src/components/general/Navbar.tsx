@@ -28,7 +28,6 @@ const LinkList = styled.ul`
     display: inline;
     position: relative;
     z-index: 101;
-    font-family: 'Poppins', Helvetica, sans-serif;
     font-weight: 600;
     font-size: 16px;
     margin: 0 16px 0 16px;
