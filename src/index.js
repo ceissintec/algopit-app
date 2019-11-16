@@ -1,12 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import theme from './theme';
+import Reset from './components/general/Reset';
+
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const GlobalStyle = createGlobalStyle`
+  html,
+  *::before,
+  *::after,
+  body {
+    box-sizing:border-box;
+    font-family: 'Poppins', Helvetica, -apple-system, sans-serif;
+    height: 100%;
+    
+  }
+  body {
+    min-height: 100vh;
+  }
+`;
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const client = new ApolloClient({
+  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+});
+
+const WiredApp = () => (
+  <ApolloProvider client={client}>
+    <Reset />
+    <GlobalStyle />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </ApolloProvider>
+);
+
+// eslint-disable-next-line no-undef
+ReactDOM.render(<WiredApp />, document.getElementById('root'));
