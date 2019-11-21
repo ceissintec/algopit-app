@@ -1,12 +1,15 @@
 import React from 'react';
 import Navbar from './components/general/Navbar';
 import Wrapper from './components/general/Wrapper';
+import { Main } from '@aragon/ui';
 
 const App = () => (
-  <div style={{ minHeight: '100vh', position: 'relative' }}>
+  <>
     <Navbar />
-    <Wrapper />
-  </div>
+    <Main>
+      <div>Algopit</div>
+    </Main>
+  </>
 );
 
 export default App;

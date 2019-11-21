@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as AlgopitSVG } from '../../assets/Algopit.svg';
+import { useTheme } from '@aragon/ui';
 
 const StyledSection = styled.section`
   position: relative;
   z-index: 99;
   width: 100vw;
   height: 64px;
-  background: ${props => props.theme.colors.main};
+  background: ${props => props.theme.colors.white};
+  border-bottom: 1px solid ${props => props.borderColor || ''};
   display: flex;
   align-items: center;
+  padding: 16px;
   .separator {
     flex-grow: 1;
   }
@@ -22,7 +25,7 @@ const Icon = styled(AlgopitSVG)`
 `;
 
 const LinkList = styled.ul`
-  color: white;
+  color: black;
   > li {
     display: inline;
     position: relative;
@@ -30,6 +33,7 @@ const LinkList = styled.ul`
     font-weight: 600;
     font-size: 16px;
     margin: 0 16px 0 16px;
+    transition: 100ms;
     ::after {
       position: absolute;
       z-index: -1;
@@ -40,16 +44,17 @@ const LinkList = styled.ul`
       width: 120%;
       height: 150%;
       border-radius: 4px;
-      transition: 0.3s;
+      transition: 100ms;
     }
     :hover {
+      color: white;
       ::after {
         position: absolute;
         z-index: -1;
         top: -20%;
         left: -10%;
         content: '';
-        background: rgba(51, 112, 185, 0.3);
+        background: ${props => props.hoverColor};
         width: 120%;
         height: 150%;
         border-radius: 4px;
@@ -61,23 +66,26 @@ const LinkList = styled.ul`
 const PlaceholderIcon = styled.div`
   width: 48px;
   height: 48px;
-  background: #82abdd;
+  background: #ec6b9e;
   border-radius: 50%;
 `;
 
-const Navbar = () => (
-  <StyledSection id="navbar">
-    <div className="separator" />
-    <Icon />
-    <LinkList>
-      <li>Problems</li>
-      <li>Lists</li>
-      <li>Challenges</li>
-    </LinkList>
-    <div className="separator" />
-    <PlaceholderIcon />
-    <div className="separator" />
-  </StyledSection>
-);
+const Navbar = () => {
+  const theme = useTheme();
+  return (
+    <StyledSection id="navbar" borderColor={theme.border}>
+      <div className="separator" />
+      <Icon />
+      <LinkList hoverColor={theme.accent}>
+        <li>Problems</li>
+        <li>Lists</li>
+        <li>Challenges</li>
+      </LinkList>
+      <div className="separator" />
+      <PlaceholderIcon />
+      <div className="separator" />
+    </StyledSection>
+  );
+};
 
 export default Navbar;
